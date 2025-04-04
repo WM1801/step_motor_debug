@@ -34,6 +34,9 @@ class Speedometer:
 
     def show(self):
         plt.show()
+        
+    def close(self):
+        plt.close()
 
 # Пример использования
 if __name__ == "__main__":

@@ -13,11 +13,12 @@ def_steps_oborot = 200
 # микрошаг (1,2,4,8,16,32,64,128)
 def_microstep = 2
 # заданное положение 
-target_position = 11
+target_position = 0
 #прошлое положение шд для вывода в консоль
 console_send_position = None
 #
 flagRun = True
+
 
 # переход от шагов к градусам 
 def normalise(val): 
@@ -60,7 +61,7 @@ def main():
     # конфигурируем шаговый двигатель
     motor = StepperMotor(steps_to_360=def_steps_oborot, microstep=def_microstep)
     # контроллер управления 
-    ctrl = Controller(init_pos=0, init_acc=2047, init_dcc=2047, init_speed_max=6700, init_speed_min=100)
+    ctrl = Controller(init_pos=0, init_acc=2047, init_dcc=2047, init_speed_max=6700, init_speed_min=400)
     # начальное направление 
     motor.set_direction(ctrl.get_direction()) 
     
@@ -87,13 +88,14 @@ def main():
             plt.draw()  # Перерисовка графика
         else:
             if console_send_position != motor.get_position():  
-                print("Движение закончено")
+                print("\nШД остановлен, ", end='')
                 motor.state() #статистика движка    
                 console_send_position = motor.get_position()
         plt.pause(0.1)  # Небольшая задержка для визуализации 
     
+    speedometer.close()
     plt.ioff()  # Выключение интерактивного режима
-    plt.show()  # Показываем финальный график
+    plt.close()
         
 if __name__ == "__main__": 
     main()

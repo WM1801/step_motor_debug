@@ -43,7 +43,7 @@ class Controller:
         
         
     def calculate_speed(self):
-    	self.speed = 100
+    	self.speed = self.speed_min
         
     def move(self): 
         if self.position < self.target_position:
